@@ -16,7 +16,6 @@ random_int = random.randint(1, 100)    # select a random integer
 correct_guess = False                   # track if guess is correct
 
 for attempt in range(7):
-    attempt +=1
     guess = int(input("Guess an integer betweeen 1 and 100: "))
     if guess == random_int:
         correct_guess = True
@@ -25,10 +24,10 @@ for attempt in range(7):
         print("\nYour guess is too low!\n")
     elif guess > random_int:
         print("\nYour guess is too high!\n")
-    print(f"You have {7 - attempt} attempts left.\n")
+    print(f"You have {6 - attempt} attempts left.\n")
 
 if correct_guess == True:
-    print("Congratulations -- your guess was correct!\n")
+    print("\nCongratulations -- your guess was correct!\n")
 else:
     print("You ran out of attempts -- you lost the game!\n")
 print(f"The secret integer was {random_int}.")
