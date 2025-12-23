@@ -1,0 +1,9 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week1/Day5/ExerciseXP/exercise_xp.py
+suggestions for improvement:
+- Consider adding more comments to explain complex logic or algorithms, especially within the loops and conditionals of Exercise 2. Good job though!
+Brief justification:
+- correctness: All four exercises are correctly implemented. Exercise 1 accurately converts the lists into a dictionary. Exercise 2 correctly calculates the total cost of movie tickets based on age. Exercise 3 manipulates the Zara brand dictionary as requested. Exercise 4 creates the three Disney character dictionaries as specified, including the sorting requirement. All code adheres precisely to the chapter's requirements.
+- readability: The code is generally well-organized and easy to follow, with clear variable names and spacing. However, additional comments could enhance readability, especially in the longer functions.
+- performance: The code demonstrates efficient use of built-in functions and data structures (like `zip` and dictionary comprehensions), resulting in optimal performance for the given tasks.
+- security: The code does not involve any external input or potentially vulnerable operations, making it secure.
+
