@@ -1,0 +1,11 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week2/Day5/ExerciseXP/exercise_xp.py
+suggestions for improvement:
+- The code is well-structured and addresses all the exercises effectively.
+- Consider adding more comments to explain the logic within the methods, especially in the `Zoo` class, to improve readability for others.
+- The type hinting in the Zoo class is well done, improving the understandability and maintainability of the code.
+Brief justification:
+- correctness: The code accurately implements the instructions for all four exercises: Cats, Dogs, Song, and Zoo. Each class and its methods function as described in the chapter content. The bonus requirement for the Zoo class is also correctly implemented.
+- readability: The code is generally well-organized and uses descriptive variable names. However, including more comments inside the methods to explain the steps of the algorithm will be benificial.
+- performance: The code's performance is efficient for the given problem sizes. The sorting and grouping in the `Zoo` class are done reasonably well.
+- security: The code doesn't directly handle any user input or external data, so security risks are minimal. However, as a general practice, always be cautious about potential vulnerabilities when dealing with external data in real-world scenarios.
+
