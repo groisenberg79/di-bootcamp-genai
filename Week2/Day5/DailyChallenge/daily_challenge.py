@@ -98,7 +98,7 @@ class Farm:
 
     add_animal(**kwargs)
         Adds each animal:count pair to the animal dictionary (if the animal is not in the dictionary)
-        Updates the <animal> value if it already is in the dictionary adding the <count> to the <animal> value
+        Updates the animal value if it already is in the dictionary adding the count to the animal value
     
     get_info()
         Returns a string that displays the farm's name, the animals and their counts,
