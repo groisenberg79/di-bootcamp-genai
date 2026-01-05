@@ -1,0 +1,11 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week1/Day5/DailyChallenge/daily_challenge.py
+suggestions for improvement:
+- The code is well-structured and addresses both challenges effectively.
+- Consider adding more comments to explain the logic within the functions for better readability.
+- Could reduce the redundancy of passing items_purchase and wallet to multiple functions, consider using a class.
+Brief justification:
+- correctness: The code accurately implements both challenges as described in the chapter content. Challenge 1 correctly creates the letter index dictionary, and Challenge 2 accurately determines and prints affordable items, handling data cleaning and sorting as required. The examples in the prompt are all correctly addressed.
+- readability: The code is generally well-readable with good use of function naming and comments, but could be improved with more in-line explanations.
+- performance: The code's performance is efficient for the given tasks. The data cleaning and item selection algorithms are reasonably optimized.
+- security: The code is secure in the context of the provided challenges, as it does not involve any external input that could lead to vulnerabilities beyond the specified input.
+

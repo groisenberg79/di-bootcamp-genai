@@ -1,0 +1,21 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day2/ExerciseXP/exercise_1.py
+suggestions for improvement:
+- Consider adding type hints to all methods for improved readability.
+- The sing method in Bengal and Chartreux isn't called. Remove them if they're not going to be used.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day2/ExerciseXP/exercise_2.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day2/ExerciseXP/exercise_3.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day2/ExerciseXP/exercise_4.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
