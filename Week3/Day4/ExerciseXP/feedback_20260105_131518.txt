@@ -1,0 +1,40 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_1.py
+suggestions for improvement:
+- Consider adding a check to ensure that amount is a non-negative number.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_3.py
+suggestions for improvement:
+- Consider using `random.choices` for a slightly more concise way to select multiple random elements from a sequence.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_4.py
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_5.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_6.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_7.py
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/exercise_one.py
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day4/ExerciseXP/func.py
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
