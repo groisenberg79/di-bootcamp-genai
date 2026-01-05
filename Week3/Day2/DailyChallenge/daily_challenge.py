@@ -150,5 +150,5 @@ print(p.get_visible_items())
 print(p.current_idx + 1)
 # Output: ValueError
 
-p.go_to_page(0)
+# p.go_to_page(0)
 # Raises ValueError
