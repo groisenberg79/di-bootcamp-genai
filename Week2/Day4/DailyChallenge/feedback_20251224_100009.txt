@@ -1,0 +1,11 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week2/Day4/DailyChallenge/daily_challenge.py
+suggestions for improvement:
+- Consider moving the test cases for `longest_word` outside the `main` function for better organization.
+- Adding docstrings to the `longest_word` function would enhance readability.
+- For a slight performance improvement in `longest_word`, initialize `longest` to an empty string outside the loop.
+Brief justification:
+- correctness: The code accurately implements both challenges: sorting comma-separated words and finding the longest word in a sentence, as described in the Chapter Content/Questions. All instructions and expected outputs are correctly addressed.
+- readability: The code is well-structured and uses comments effectively to explain each step. Variable names are descriptive.  Minor improvements could be made by adding docstrings.
+- performance: The code's performance is efficient for the given tasks. The `sorted()` function in Challenge 1 and the loop in Challenge 2 have reasonable time complexity. Initializing the longest string outside the loop in the second challenge would marginally improve performance.
+- security: The code doesn't involve any external inputs other than user-provided strings, minimizing security risks.  There are no apparent vulnerabilities.
+
