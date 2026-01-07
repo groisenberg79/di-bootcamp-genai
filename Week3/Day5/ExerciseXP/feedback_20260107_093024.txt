@@ -1,0 +1,10 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day5/ExerciseXP/exercise_xp.py
+suggestions for improvement:
+- Consider adding more comprehensive error handling, such as handling FileNotFoundError in `get_words_from_file`.
+- For improved readability in the JSON exercise, you could separate the steps (loading, accessing, modifying, saving) with comments or blank lines.
+Brief justification:
+- correctness: The code accurately and completely solves both exercises as described in the Chapter Content/Questions. It implements the random sentence generator and correctly manipulates the JSON data, covering all specified requirements.
+- readability: The code is well-structured and easy to understand. Function and variable names are descriptive. Docstrings are included, although they could be slightly more detailed.
+- performance: The code is reasonably performant for the given tasks.  `random.choices` is a good choice for selecting multiple random elements. File operations are straightforward.
+- security: The code doesn't involve any external input that could pose a security risk. File operations are simple reads and writes.
+
