@@ -25,3 +25,79 @@
 # What is method resolution order or MRO?
 # Answer: Method Resolution Order is the sequence in which Python searches for attributes (methods and variables) within a class hierarchy. This process is crucial in Python's object-oriented programming model, especially when a class inherits from multiple parent classes, allowing Python to resolve potential naming conflicts predictably. 
 
+# Part 2: Create a deck of cards class.
+# The Deck of cards class should NOT inherit from a Card class.
+
+# The requirements are as follows:
+# The Card class should have a suit (Hearts, Diamonds, Clubs, Spades) and a value (A,2,3,4,5,6,7,8,9,10,J,Q,K)
+# The Deck class :
+# should have a shuffle method which makes sure the deck of cards has all 52 cards and then rearranges them randomly.
+# should have a method called deal which deals a single card from the deck. After a card is dealt, it should be removed from the deck.
+from random import shuffle
+import sys
+from time import sleep
+
+SUITS = ["Hearts", "Diamonds", "Clubs", "Spades"]
+VALUES = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
+
+class Card:
+    def __init__(self, suit: str, value: str):
+        self.suit = suit
+        self.value = value
+
+class Deck:
+    def __init__(self):
+        self.cards = [Card(suit, value) for suit in SUITS for value in VALUES]
+
+    def __repr__(self):
+        deck = str()
+        for card in self.cards:
+            deck += f"{card.value} of {card.suit}\n"
+        return deck
+
+    def shuffle(self) -> None:
+        """
+        shuffles the deck of cards, if it is complete
+        
+        """
+        if len(self.cards) == 52:
+            shuffle(self.cards)
+        else:
+            print("The deck is incomplete.")
+    
+    def deal(self) -> Card:
+        """
+        deals a card from the deck if the deck is not empty
+        
+        :return: the card that was dealt
+        :rtype: Card
+        """
+        if self.cards == []:
+            print("The deck is empty.")
+        else:
+            print("Dealing card", end="")
+            for char in "...":
+                sys.stdout.write(char)
+                sys.stdout.flush() 
+                sleep(0.5)
+            print()
+            card_dealt = self.cards.pop()
+            print(f"Card dealt: {card_dealt.value} of {card_dealt.suit}.")
+            return card_dealt
+
+def play():
+    deck1 = Deck()
+    print('Before shuffle: ')
+    print()
+    print(deck1)
+    print('After shuffle: ')
+    print()
+    deck1.shuffle()
+    print(deck1)
+
+    card_dealt = deck1.deal()
+    print(f"The card {card_dealt.value} of {card_dealt.suit} is in the deck: {card_dealt in deck1.cards}")
+
+play()
+
+
