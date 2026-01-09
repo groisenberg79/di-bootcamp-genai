@@ -1,0 +1,18 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week4/Day1/AnagramChecker/anagram_checker.py
+suggestions for improvement:
+- Consider moving the file reading to a class variable to avoid re-reading it every time an instance is created.
+- The `is_anagram` method can be optimized by sorting the words and comparing them. This is generally faster than using dictionaries for counting, especially for shorter words.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week4/Day1/AnagramChecker/anagrams.py
+suggestions for improvement:
+- Consider using more descriptive variable names where appropriate to enhance readability.
+- The code is well-structured and could benefit from additional comments to further clarify the logic within each function.
+Correctness: 100%
+-----
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week4/Day1/AnagramChecker/sowpods.txt
+suggestions for improvement:
+- This file contains a list of English words, which is fine, however, the provided instructions mentions that it must be within a ZIP file not a TXT file.  Make sure that this is contained within a zip file
+- This is data and not code, so there's no meaningful way to evaluate it based on the instructions. Therefore the correctness has to be 0.
+Correctness: 0.0%
+-----
