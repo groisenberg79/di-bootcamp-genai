@@ -1,7 +1,9 @@
 class AnagramChecker:
+    with open("Week4/Day1/AnagramChecker/sowpods.txt", "r") as f:
+        word_list = f.read().split()
+
     def __init__(self):
-        with open("Week4/Day1/AnagramChecker/sowpods.txt", "r") as f:
-            self.word_list = f.read().split()
+        self.word_list = AnagramChecker.word_list
     
     def is_valid_word(self, word: str) -> bool:
         """
@@ -29,12 +31,11 @@ class AnagramChecker:
         :return: True if they are anagrams, False otherwise
         :rtype: bool
         """
-        # a dict that records each letter frequency in word1
-        word1_count = {letter: word1.count(letter) for letter in word1}
-        # a dict that records each letter frequency in word2
-        word2_count = {letter: word2.count(letter) for letter in word2}
-        # check if they are anagrams
-        return word1_count == word2_count
+        # make a sorted list of the letters of word1 
+        word1_sorted = sorted(word1)
+        # make a sorted list of the letters of word2
+        word2_sorted = sorted(word2)
+        return word1_sorted == word2_sorted
     
     def get_anagrams(self, word: str) -> list[str]:
         """
