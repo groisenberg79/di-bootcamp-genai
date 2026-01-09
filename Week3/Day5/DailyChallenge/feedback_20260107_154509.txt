@@ -1,0 +1,12 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week3/Day5/DailyChallenge/daily_challenge.py
+suggestions for improvement:
+- Implement the `TextModification` class and its methods (`remove_punctuation`, `remove_stop_words`, `remove_special_characters`) as described in the instructions. Currently, the code only implements the `Text` class.
+- Consider handling edge cases more explicitly (e.g., empty text input, file not found with more robust error handling or logging).
+- For `most_common_word`, consider using `collections.Counter` for a more efficient way to count word frequencies.
+- Add comments to explain more complex logic or algorithms used, especially within the `TextModification` class when implemented.
+Brief justification:
+- correctness: The code correctly implements the `Text` class with its methods: `word_frequency`, `most_common_word`, `unique_words`, and `from_file`. However, it does not include the `TextModification` class and its associated methods, which are part of the instructions. Therefore, it's partially correct, missing the bonus section.
+- readability: The code is generally well-readable with descriptive variable names and docstrings. Type hints improve clarity.
+- performance: The `create_word_list` method uses regular expressions, which is generally efficient. The `most_common_word` method could be improved using `collections.Counter`.
+- security: The `from_file` method includes basic file handling with a `try-except` block, which improves security by preventing the program from crashing when a file is not found. However, it does not implement the `TextModification` which could expose to potential issues if not handled carefully
+
