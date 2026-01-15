@@ -1,0 +1,10 @@
+URL: https://github.com/groisenberg79/di-bootcamp-genai/blob/main/Week2/Day5/DailyChallenge/daily_challenge.py
+suggestions for improvement:
+- Consider removing the docstrings if they are not part of the requirements, as they can sometimes reduce readability if overused or too verbose.
+- The `add_number_morphology` method is a good addition for improving the output of `get_short_info`, however, it may be better to incorporate the logic directly into the `get_short_info` method for better cohesion.
+Brief justification:
+- correctness: The code correctly implements all the steps outlined in the instructions, including creating the `Farm` class, implementing `__init__`, `add_animal`, `get_info`, `get_animal_types`, and `get_short_info` methods. It also correctly handles the bonus task of using `**kwargs` in the `add_animal` method. The output matches the expected output in the example.
+- readability: The code is generally well-readable due to the presence of docstrings and clear variable names. However, the docstrings are somewhat verbose and could be more concise. The use of type hints enhances readability. Separating the `add_number_morphology` function could make the overall structure slightly less easy to follow initially, but it does improve modularity.
+- performance: The code has good performance because it uses dictionaries for storing and retrieving animal counts, which offers O(1) average time complexity. The use of `sorted()` for getting animal types has a time complexity of O(n log n), which is acceptable for this task. The string formatting is efficient.
+- security: The code does not have any apparent security issues. It does not take external input, and there's no risk of code injection or data leakage.
+
