@@ -20,3 +20,8 @@
 
 -- SQL state: 23502
 -- Detail: Failing row contains (8, Bill, Murray, null, 1).
+
+-- SELECT first_name AS name_1 FROM actors
+
+
+
