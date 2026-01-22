@@ -10,9 +10,9 @@ UPDATE film
 SET language_id = 4
 WHERE film_id = 3;
 
-The FOREIGN KEY is address_id, and it references address_id in the table address. 
-In order to use INSERT in customer, we need to specify the corresponding address_id in the
-address table as one of the entries in VALUES (for each row). 
+-- The FOREIGN KEY is address_id, and it references address_id in the table address. 
+-- In order to use INSERT in customer, we need to specify the corresponding address_id in the
+-- address table as one of the entries in VALUES (for each row). 
 
 DROP TABLE customer_review;
 This is an easy step, because this table is a child table to the new_film table
