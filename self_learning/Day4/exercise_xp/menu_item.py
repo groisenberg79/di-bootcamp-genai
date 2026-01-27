@@ -52,6 +52,7 @@
 # show_restaurant_menu() - print the restaurant’s menu.
 
 # When the user chooses to exit the program, display the restaurant menu and exit the program.
+
 import db
 
 class MenuItem:
@@ -60,7 +61,6 @@ class MenuItem:
             raise ValueError("price must be non-negative")
         self.name = name
         self.price = price
-        self._deleted = False  # lifecycle flag
 
     
     def save(self) -> tuple | None:
@@ -77,18 +77,15 @@ class MenuItem:
         new_item = db.run_select_one(sql, (self.name, self.price))
         return new_item
 
-    def delete(self):
+    def delete(self) -> tuple | None:
         sql = """
         DELETE FROM menu_items
         WHERE item_name = %s
         RETURNING *;
         """
-        deleted_item = db.run_select_one(sql, (self.name,))
-        if deleted_item is not None:
-            self._deleted = True
-        return deleted_item
+        return db.run_select_one(sql, (self.name,))
 
-    def update(self, new_name: str, new_price: int):
+    def update(self, new_name: str, new_price: int) -> tuple | None:
         if new_price < 0:
             raise ValueError("price must be non-negative")
         sql = """
