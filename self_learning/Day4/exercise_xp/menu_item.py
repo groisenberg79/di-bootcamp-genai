@@ -63,7 +63,11 @@ class MenuItem:
         self._deleted = False  # lifecycle flag
 
     
-    def save(self):
+    def save(self) -> tuple | None:
+        """
+        Returns a tuple representing the new item if no conflict arises with existing rows,
+        otherwise returns None
+        """
         sql = """
         INSERT INTO menu_items(item_name, item_price)
         VALUES (%s, %s)
