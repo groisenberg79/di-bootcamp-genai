@@ -1,0 +1,242 @@
+[
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/kp.png",
+            "svg": "https://flagcdn.com/kp.svg",
+            "alt": "The flag of North Korea is composed of three horizontal bands — a large central white-edged red band, and a blue band above and beneath the red band. On the hoist side of the red band is a red five-pointed star within a white circle."
+        },
+        "name": {
+            "common": "North Korea",
+            "official": "Democratic People's Republic of Korea",
+            "nativeName": {
+                "kor": {
+                    "official": "조선민주주의인민공화국",
+                    "common": "조선"
+                }
+            }
+        },
+        "capital": [
+            "Pyongyang"
+        ],
+        "subregion": "Eastern Asia",
+        "population": 25950000
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/jo.png",
+            "svg": "https://flagcdn.com/jo.svg",
+            "alt": "The flag of Jordan is composed of three equal horizontal bands of black, white and green, with a red isosceles triangle superimposed on the hoist side of the field. This triangle has its base on the hoist end, spans about half the width of the field and bears a small seven-pointed white star at its center."
+        },
+        "name": {
+            "common": "Jordan",
+            "official": "Hashemite Kingdom of Jordan",
+            "nativeName": {
+                "ara": {
+                    "official": "المملكة الأردنية الهاشمية",
+                    "common": "الأردن"
+                }
+            }
+        },
+        "capital": [
+            "Amman"
+        ],
+        "subregion": "Western Asia",
+        "population": 11734000
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/gi.png",
+            "svg": "https://flagcdn.com/gi.svg",
+            "alt": ""
+        },
+        "name": {
+            "common": "Gibraltar",
+            "official": "Gibraltar",
+            "nativeName": {
+                "eng": {
+                    "official": "Gibraltar",
+                    "common": "Gibraltar"
+                }
+            }
+        },
+        "capital": [
+            "Gibraltar"
+        ],
+        "subregion": "Southern Europe",
+        "population": 38000
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/it.png",
+            "svg": "https://flagcdn.com/it.svg",
+            "alt": "The flag of Italy is composed of three equal vertical bands of green, white and red."
+        },
+        "name": {
+            "common": "Italy",
+            "official": "Italian Republic",
+            "nativeName": {
+                "ita": {
+                    "official": "Repubblica italiana",
+                    "common": "Italia"
+                }
+            }
+        },
+        "capital": [
+            "Rome"
+        ],
+        "subregion": "Southern Europe",
+        "population": 58927633
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/sx.png",
+            "svg": "https://flagcdn.com/sx.svg",
+            "alt": ""
+        },
+        "name": {
+            "common": "Sint Maarten",
+            "official": "Sint Maarten",
+            "nativeName": {
+                "eng": {
+                    "official": "Sint Maarten",
+                    "common": "Sint Maarten"
+                },
+                "fra": {
+                    "official": "Saint-Martin",
+                    "common": "Saint-Martin"
+                },
+                "nld": {
+                    "official": "Sint Maarten",
+                    "common": "Sint Maarten"
+                }
+            }
+        },
+        "capital": [
+            "Philipsburg"
+        ],
+        "subregion": "Caribbean",
+        "population": 41349
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/vg.png",
+            "svg": "https://flagcdn.com/vg.svg",
+            "alt": ""
+        },
+        "name": {
+            "common": "British Virgin Islands",
+            "official": "Virgin Islands",
+            "nativeName": {
+                "eng": {
+                    "official": "Virgin Islands",
+                    "common": "British Virgin Islands"
+                }
+            }
+        },
+        "capital": [
+            "Road Town"
+        ],
+        "subregion": "Caribbean",
+        "population": 39471
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/ss.png",
+            "svg": "https://flagcdn.com/ss.svg",
+            "alt": "The flag of South Sudan is composed of three equal horizontal bands of black, red with white top and bottom edges, and green. A blue equilateral triangle which spans about two-fifth the width of the field is superimposed on the hoist side with its base on the hoist end of the field. At the center of this triangle is a five-pointed yellow star."
+        },
+        "name": {
+            "common": "South Sudan",
+            "official": "Republic of South Sudan",
+            "nativeName": {
+                "eng": {
+                    "official": "Republic of South Sudan",
+                    "common": "South Sudan"
+                }
+            }
+        },
+        "capital": [
+            "Juba"
+        ],
+        "subregion": "Middle Africa",
+        "population": 15786898
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/by.png",
+            "svg": "https://flagcdn.com/by.svg",
+            "alt": "The flag of Belarus features a vertical band, with a white and red ornamental pattern, spanning about one-fifth the width of the field on the hoist side. Adjoining the vertical band are two horizontal bands of red and green, with the red band twice the height of the green band."
+        },
+        "name": {
+            "common": "Belarus",
+            "official": "Republic of Belarus",
+            "nativeName": {
+                "bel": {
+                    "official": "Рэспубліка Беларусь",
+                    "common": "Белару́сь"
+                },
+                "rus": {
+                    "official": "Республика Беларусь",
+                    "common": "Беларусь"
+                }
+            }
+        },
+        "capital": [
+            "Minsk"
+        ],
+        "subregion": "Eastern Europe",
+        "population": 9109280
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/gu.png",
+            "svg": "https://flagcdn.com/gu.svg",
+            "alt": ""
+        },
+        "name": {
+            "common": "Guam",
+            "official": "Guam",
+            "nativeName": {
+                "cha": {
+                    "official": "Guåhån",
+                    "common": "Guåhån"
+                },
+                "eng": {
+                    "official": "Guam",
+                    "common": "Guam"
+                },
+                "spa": {
+                    "official": "Guam",
+                    "common": "Guam"
+                }
+            }
+        },
+        "capital": [
+            "Hagåtña"
+        ],
+        "subregion": "Micronesia",
+        "population": 153836
+    },
+    {
+        "flags": {
+            "png": "https://flagcdn.com/w320/gr.png",
+            "svg": "https://flagcdn.com/gr.svg",
+            "alt": "The flag of Greece is composed of nine equal horizontal bands of blue alternating with white. A blue square bearing a white cross is superimposed in the canton."
+        },
+        "name": {
+            "common": "Greece",
+            "official": "Hellenic Republic",
+            "nativeName": {
+                "ell": {
+                    "official": "Ελληνική Δημοκρατία",
+                    "common": "Ελλάδα"
+                }
+            }
+        },
+        "capital": [
+            "Athens"
+        ],
+        "subregion": "Southern Europe",
+        "population": 10400720
+    }
+]
