@@ -17,3 +17,7 @@ venv/
 
 # Node (if you ever add JS work later)
 node_modules/
+
+# IDE files
+.idea/
+.vscode/
