@@ -24,6 +24,7 @@ node_modules/
 
 kaggle.json
 
-
+# folders from mcp mini project
 mcp-research-notebook/cache/
 mcp-research-notebook/outputs/
+mcp-research-notebook/logs/

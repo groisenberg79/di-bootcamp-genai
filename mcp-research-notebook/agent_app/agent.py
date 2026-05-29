@@ -1,5 +1,7 @@
+import json
 import re
-from typing import Literal, TypedDict
+from datetime import datetime, timezone
+from typing import Any, Literal, TypedDict
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, END
@@ -23,7 +25,6 @@ class ResearchState(TypedDict):
     Each node receives this state, reads some fields, adds or updates fields,
     and returns the updated state.
     """
-
     topic: str
     arxiv_results: str
     arxiv_error: str
@@ -32,7 +33,29 @@ class ResearchState(TypedDict):
     final_message: str
     next_action: str
     steps_taken: list[str]
+    log_path: str
 
+def log_event(event_type: str, payload: dict[str, Any]) -> None:
+    """
+    Append one structured event to logs/tool_calls.jsonl.
+
+    This gives the workflow basic observability: planner decisions, tool calls,
+    cache usage, errors, and file writes can be inspected after a run.
+    """
+
+    log_dir = PROJECT_ROOT / "logs"
+    log_dir.mkdir(exist_ok=True)
+
+    log_path = log_dir / "tool_calls.jsonl"
+
+    event = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "event_type": event_type,
+        **payload,
+    }
+
+    with log_path.open("a", encoding="utf-8") as log_file:
+        log_file.write(json.dumps(event, ensure_ascii=False) + "\n")
 
 def slugify_topic(topic: str) -> str:
     """
@@ -125,6 +148,18 @@ What is the next action?
 
     print(f"Planner chose next action: {action}")
 
+    log_event(
+        "planner_decision",
+        {
+            "action": action,
+            "topic": state["topic"],
+            "has_arxiv_results": bool(state["arxiv_results"]),
+            "has_arxiv_error": bool(state["arxiv_error"]),
+            "has_brief": bool(state["brief"]),
+            "has_output_path": bool(state["output_path"]),
+        },
+    )
+
     state["next_action"] = action
     state["steps_taken"].append(f"planner:{action}")
 
@@ -179,9 +214,36 @@ def search_arxiv_node(state: ResearchState) -> ResearchState:
         state["arxiv_error"] = ""
         state["steps_taken"].append("tool:arxiv_cache")
 
+        log_event(
+            "tool_call",
+            {
+                "server": "local_cache",
+                "tool": "read_cache",
+                "status": "success",
+                "topic": topic,
+                "cache_path": str(cache_path),
+                "output_summary": "Loaded cached arXiv results.",
+            },
+        )
+
         return state
 
     print("No cached result found. Calling live arXiv MCP server...")
+
+    log_event(
+    "tool_call",
+    {
+        "server": "arxiv",
+        "tool": "search_papers",
+        "status": "started",
+        "topic": topic,
+        "input_summary": {
+            "query": topic,
+            "max_results": 3,
+            "sort_by": "relevance",
+        },
+    },
+)
 
     arxiv_results = call_mcp_tool(
         server_name="arxiv",
@@ -200,11 +262,34 @@ def search_arxiv_node(state: ResearchState) -> ResearchState:
         state["arxiv_error"] = arxiv_results
         state["steps_taken"].append("tool:arxiv_search_error")
 
+        log_event(
+            "tool_call",
+            {
+                "server": "arxiv",
+                "tool": "search_papers",
+                "status": "error",
+                "topic": topic,
+                "output_summary": arxiv_results[:500],
+            },
+        )
+
         return state
 
     print("Finished live arXiv search. Saving result to cache.")
 
     cache_path.write_text(arxiv_results, encoding="utf-8")
+
+    log_event(
+    "tool_call",
+    {
+        "server": "arxiv",
+        "tool": "search_papers",
+        "status": "success",
+        "topic": topic,
+        "cache_path": str(cache_path),
+        "output_summary": arxiv_results[:500],
+    },
+)
 
     state["arxiv_results"] = arxiv_results
     state["arxiv_error"] = ""
@@ -276,6 +361,21 @@ format citations, and produce a cleaner synthesis.
     state["brief"] = brief
     state["steps_taken"].append("tool:build_brief")
 
+    log_event(
+        "tool_call",
+        {
+            "server": "local_function",
+            "tool": "build_brief_node",
+            "status": "success",
+            "topic": topic,
+            "input_summary": {
+                "has_arxiv_results": bool(arxiv_results),
+                "has_arxiv_error": bool(arxiv_error),
+            },
+            "output_summary": f"Generated Markdown brief with {len(brief)} characters.",
+        },
+    )
+
     print("Finished building brief.")
 
     return state
@@ -290,6 +390,17 @@ def save_brief_node(state: ResearchState) -> ResearchState:
 
     output_path = PROJECT_ROOT / "outputs" / "final_research_brief.md"
 
+    log_event(
+        "tool_call",
+        {
+            "server": "filesystem",
+            "tool": "write_file",
+            "status": "started",
+            "path": str(output_path),
+            "input_summary": f"Writing Markdown brief with {len(state['brief'])} characters.",
+        },
+    )
+
     result = call_mcp_tool(
         server_name="filesystem",
         tool_name="write_file",
@@ -300,11 +411,23 @@ def save_brief_node(state: ResearchState) -> ResearchState:
     )
 
     state["output_path"] = str(output_path)
+    state["log_path"] = str(PROJECT_ROOT / "logs" / "tool_calls.jsonl")
     state["final_message"] = (
         f"Research brief created and saved to:\n{output_path}\n\n"
         f"Filesystem server response:\n{result}"
     )
     state["steps_taken"].append("tool:filesystem_write")
+
+    log_event(
+        "tool_call",
+        {
+            "server": "filesystem",
+            "tool": "write_file",
+            "status": "success",
+            "path": str(output_path),
+            "output_summary": result[:500],
+        },
+    )
 
     print("Finished saving brief.")
 
@@ -322,6 +445,17 @@ def finish_node(state: ResearchState) -> ResearchState:
         state["final_message"] = "Workflow finished."
 
     state["steps_taken"].append("finish")
+    state["log_path"] = str(PROJECT_ROOT / "logs" / "tool_calls.jsonl")
+
+    log_event(
+        "workflow_finished",
+        {
+            "topic": state["topic"],
+            "output_path": state["output_path"],
+            "log_path": state["log_path"],
+            "steps_taken": state["steps_taken"],
+        },
+    )
 
     return state
 
@@ -383,6 +517,7 @@ def run_research_workflow(topic: str) -> ResearchState:
         "final_message": "",
         "next_action": "",
         "steps_taken": [],
+        "log_path": str(PROJECT_ROOT / "logs" / "tool_calls.jsonl"),
     }
 
     final_state = graph.invoke(initial_state)
