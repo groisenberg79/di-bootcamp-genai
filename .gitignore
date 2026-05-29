@@ -23,3 +23,7 @@ node_modules/
 .vscode/
 
 kaggle.json
+
+
+mcp-research-notebook/cache/
+mcp-research-notebook/outputs/
