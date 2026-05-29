@@ -1,9 +1,19 @@
 import re
-from typing import TypedDict
+from typing import Literal, TypedDict
 
+from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, END
 
+from agent_app.llm import get_llm
 from agent_app.mcp_tool_runner import PROJECT_ROOT, call_mcp_tool
+
+
+PlannerAction = Literal[
+    "search_arxiv",
+    "build_brief",
+    "save_brief",
+    "finish",
+]
 
 
 class ResearchState(TypedDict):
@@ -20,6 +30,8 @@ class ResearchState(TypedDict):
     brief: str
     output_path: str
     final_message: str
+    next_action: str
+    steps_taken: list[str]
 
 
 def slugify_topic(topic: str) -> str:
@@ -37,6 +49,105 @@ def slugify_topic(topic: str) -> str:
     slug = slug.strip("_")
 
     return slug or "research_topic"
+
+
+def planner_node(state: ResearchState) -> ResearchState:
+    """
+    Ask the local Ollama model which high-level action should happen next.
+
+    The LLM does not directly execute tools. It only chooses from a constrained
+    list of allowed actions. LangGraph then routes to the corresponding node.
+    """
+
+    print("Starting planner_node...")
+
+    llm = get_llm()
+
+    system_prompt = """
+You are the planner for a small MCP research notebook workflow.
+
+You must choose exactly one next action from this list:
+
+search_arxiv
+build_brief
+save_brief
+finish
+
+Rules:
+- If there are no arXiv results and no arXiv error, choose search_arxiv.
+- If there are arXiv results or an arXiv error, and there is no brief yet, choose build_brief.
+- If there is a brief but no output_path yet, choose save_brief.
+- If there is already an output_path, choose finish.
+- Do not invent new action names.
+- Return only the action name, with no explanation.
+"""
+
+    user_prompt = f"""
+Current workflow state:
+
+topic: {state["topic"]}
+has_arxiv_results: {bool(state["arxiv_results"])}
+has_arxiv_error: {bool(state["arxiv_error"])}
+has_brief: {bool(state["brief"])}
+has_output_path: {bool(state["output_path"])}
+steps_taken: {state["steps_taken"]}
+
+What is the next action?
+"""
+
+    response = llm.invoke(
+        [
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=user_prompt),
+        ]
+    )
+
+    action = response.content.strip().lower()
+
+    allowed_actions = {
+        "search_arxiv",
+        "build_brief",
+        "save_brief",
+        "finish",
+    }
+
+    if action not in allowed_actions:
+        print(f"Planner returned invalid action: {action!r}. Falling back safely.")
+
+        if not state["arxiv_results"] and not state["arxiv_error"]:
+            action = "search_arxiv"
+        elif not state["brief"]:
+            action = "build_brief"
+        elif not state["output_path"]:
+            action = "save_brief"
+        else:
+            action = "finish"
+
+    print(f"Planner chose next action: {action}")
+
+    state["next_action"] = action
+    state["steps_taken"].append(f"planner:{action}")
+
+    return state
+
+
+def route_from_planner(state: ResearchState) -> str:
+    """
+    Route the graph based on the planner's selected action.
+    """
+
+    action = state["next_action"]
+
+    if action == "search_arxiv":
+        return "search_arxiv"
+
+    if action == "build_brief":
+        return "build_brief"
+
+    if action == "save_brief":
+        return "save_brief"
+
+    return "finish"
 
 
 def search_arxiv_node(state: ResearchState) -> ResearchState:
@@ -66,6 +177,7 @@ def search_arxiv_node(state: ResearchState) -> ResearchState:
 
         state["arxiv_results"] = cache_path.read_text(encoding="utf-8")
         state["arxiv_error"] = ""
+        state["steps_taken"].append("tool:arxiv_cache")
 
         return state
 
@@ -86,6 +198,7 @@ def search_arxiv_node(state: ResearchState) -> ResearchState:
 
         state["arxiv_results"] = ""
         state["arxiv_error"] = arxiv_results
+        state["steps_taken"].append("tool:arxiv_search_error")
 
         return state
 
@@ -95,6 +208,7 @@ def search_arxiv_node(state: ResearchState) -> ResearchState:
 
     state["arxiv_results"] = arxiv_results
     state["arxiv_error"] = ""
+    state["steps_taken"].append("tool:arxiv_search_success")
 
     return state
 
@@ -160,6 +274,7 @@ format citations, and produce a cleaner synthesis.
 """
 
     state["brief"] = brief
+    state["steps_taken"].append("tool:build_brief")
 
     print("Finished building brief.")
 
@@ -189,8 +304,24 @@ def save_brief_node(state: ResearchState) -> ResearchState:
         f"Research brief created and saved to:\n{output_path}\n\n"
         f"Filesystem server response:\n{result}"
     )
+    state["steps_taken"].append("tool:filesystem_write")
 
     print("Finished saving brief.")
+
+    return state
+
+
+def finish_node(state: ResearchState) -> ResearchState:
+    """
+    Finish the workflow.
+    """
+
+    print("Starting finish_node...")
+
+    if not state["final_message"]:
+        state["final_message"] = "Workflow finished."
+
+    state["steps_taken"].append("finish")
 
     return state
 
@@ -199,24 +330,39 @@ def build_research_graph():
     """
     Build and compile the LangGraph workflow.
 
-    Current deterministic graph:
+    LLM-planned graph:
 
-    search_arxiv -> build_brief -> save_brief -> END
+    planner -> selected action -> planner -> ... -> finish
 
-    Later, this can be extended with an LLM planner node.
+    The LLM chooses the next high-level action, but the graph restricts actions
+    to a safe fixed set.
     """
 
     graph = StateGraph(ResearchState)
 
+    graph.add_node("planner", planner_node)
     graph.add_node("search_arxiv", search_arxiv_node)
     graph.add_node("build_brief", build_brief_node)
     graph.add_node("save_brief", save_brief_node)
+    graph.add_node("finish", finish_node)
 
-    graph.set_entry_point("search_arxiv")
+    graph.set_entry_point("planner")
 
-    graph.add_edge("search_arxiv", "build_brief")
-    graph.add_edge("build_brief", "save_brief")
-    graph.add_edge("save_brief", END)
+    graph.add_conditional_edges(
+        "planner",
+        route_from_planner,
+        {
+            "search_arxiv": "search_arxiv",
+            "build_brief": "build_brief",
+            "save_brief": "save_brief",
+            "finish": "finish",
+        },
+    )
+
+    graph.add_edge("search_arxiv", "planner")
+    graph.add_edge("build_brief", "planner")
+    graph.add_edge("save_brief", "planner")
+    graph.add_edge("finish", END)
 
     return graph.compile()
 
@@ -235,6 +381,8 @@ def run_research_workflow(topic: str) -> ResearchState:
         "brief": "",
         "output_path": "",
         "final_message": "",
+        "next_action": "",
+        "steps_taken": [],
     }
 
     final_state = graph.invoke(initial_state)
