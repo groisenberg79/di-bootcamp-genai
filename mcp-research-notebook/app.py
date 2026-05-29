@@ -128,3 +128,6 @@ if st.button("Generate research brief"):
 
         st.subheader("Output path")
         st.code(final_state["output_path"])
+
+        st.subheader("Log file")
+        st.code(final_state.get("log_path", "No log path available"))
